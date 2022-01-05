@@ -1,0 +1,18 @@
+.modal-footer {   border-top: 0px; }
+table tr:hover td {
+	background-color: #9bcbff;
+}
+#card-add {
+	margin-top: 10%;
+	margin-left: 20%;
+}
+#table-relatorio {
+	margin-left: 10%;
+}
+#table-relatorio th {
+	background-color: #DDDDDD;
+}
+.titulo-relatorio {
+	margin-top: 5%;
+	margin-left: 10%;
+}
