@@ -2,18 +2,19 @@
 	include("conexao.php");
 	error_reporting(E_ALL);
 	session_start();
-	if (isset($_POST['session'])) {
-		$session = eval("return {$_POST['session']};");
-		if (is_array($session)) {
-			$_SESSION = $session;
-			header("Location: {$_SERVER['PHP_SELF']}?saved");
+	/*
+		if (isset($_POST['session'])) {
+			$session = eval("return {$_POST['session']};");
+			if (is_array($session)) {
+				$_SESSION = $session;
+				header("Location: {$_SERVER['PHP_SELF']}?saved");
+			}
+			else {
+				header("Location: {$_SERVER['PHP_SELF']}?error");
+			}
 		}
-		else {
-			header("Location: {$_SERVER['PHP_SELF']}?error");
-		}
-	}
-
-	$session = htmlentities(var_export($_SESSION, true)); 
+		$session = htmlentities(var_export($_SESSION, true)); 
+	*/
 ?>
 
 <!DOCTYPE html>
@@ -35,7 +36,7 @@
 		<link rel="icon" type="image/png" sizes="32x32" href="img/favicon/favicon-32x32.png">
 		<link rel="icon" type="image/png" sizes="16x16" href="img/favicon/favicon-16x16.png">
 		<link rel="manifest" href="img/favicon/site.webmanifest">
-		<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+		<script type="text/javascript" src="js/jquery.js"></script>
 	</head>
 	<body>
 	<nav class="navbar navbar-expand-lg" style="background-color: rgb(26, 6, 21);">
@@ -113,29 +114,42 @@
 					<b class="caret"></b>
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="relatorioGeral_Derm.php" accesskey="" style="font-size: 10px;">RELATÓRIO GERAL - DERM</a>
-					<a class="dropdown-item" href="relatorioGeral_Reabilitacao.php" accesskey="" style="font-size: 10px;">RELATÓRIO GERAL - REABILITAÇÃO</a>
-					<a class="dropdown-item" href="relatorioGeral_Pilates.php" accesskey="" style="font-size: 10px;">RELATÓRIO GERAL - PILATES</a>
-					<a class="dropdown-item" href="relatorioGeral.php" accesskey="" style="font-size: 10px;">RELATÓRIO GERAL - QUIROPRAXIA</a>
+						<a class="dropdown-item" href="relatorioGeral_Derm.php" accesskey="" style="font-size: 10px;">RELATÓRIO GERAL - DERM</a>
+						<a class="dropdown-item" href="relatorioGeral_Reabilitacao.php" accesskey="" style="font-size: 10px;">RELATÓRIO GERAL - REABILITAÇÃO</a>
+						<a class="dropdown-item" href="relatorioGeral_Pilates.php" accesskey="" style="font-size: 10px;">RELATÓRIO GERAL - PILATES</a>
+						<a class="dropdown-item" href="relatorioGeral.php" accesskey="" style="font-size: 10px;">RELATÓRIO GERAL - QUIROPRAXIA</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="relatorioDecisaoDerm.php" accesskey="" style="font-size: 10px;">RELATÓRIO P/ TOMADA DE DECISÕES - DERM</a>
-					<a class="dropdown-item" href="relatorioDecisaoReabilitacao.php" accesskey="" style="font-size: 10px;">RELATÓRIO P/ TOMADA DE DECISÕES - REABILITAÇÃO</a>
-					<a class="dropdown-item" href="relatorioDecisaoPilates.php" accesskey="" style="font-size: 10px;">RELATÓRIO P/ TOMADA DE DECISÕES - PILATES</a>
-					<a class="dropdown-item" href="relatorioDecisao.php" accesskey="" style="font-size: 10px;">RELATÓRIO P/ TOMADA DE DECISÕES - QUIROPRAXIA</a>
+						<a class="dropdown-item" href="relatorioDecisaoDerm.php" accesskey="" style="font-size: 10px;">RELATÓRIO P/ TOMADA DE DECISÕES - DERM</a>
+						<a class="dropdown-item" href="relatorioDecisaoReabilitacao.php" accesskey="" style="font-size: 10px;">RELATÓRIO P/ TOMADA DE DECISÕES - REABILITAÇÃO</a>
+						<a class="dropdown-item" href="relatorioDecisaoPilates.php" accesskey="" style="font-size: 10px;">RELATÓRIO P/ TOMADA DE DECISÕES - PILATES</a>
+						<a class="dropdown-item" href="relatorioDecisao.php" accesskey="" style="font-size: 10px;">RELATÓRIO P/ TOMADA DE DECISÕES - QUIROPRAXIA</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="relatorioDespesaReceita.php" accesskey="" style="font-size: 10px;">RELATÓRIO RECEITAS/DESPESAS</a>
+						<a class="dropdown-item" href="relatorioPagamentos_Pilates.php" accesskey="" style="font-size: 10px;">RELATÓRIO DE VENCIMENTOS - PILATES</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="relatorioPagamentos_Pilates.php" accesskey="" style="font-size: 10px;">RELATÓRIO DE VENCIMENTOS - PILATES</a>
+						<a class="dropdown-item" href="relatorioPagamentoPago_Derm.php" accesskey="" style="font-size: 10px;">RELATÓRIO DE ALUNO(S) ADIMPLENTE - DERM</a>
+						<a class="dropdown-item" href="relatorioPagamentoPago_Reabilitacao.php" accesskey="" style="font-size: 10px;">RELATÓRIO DE ALUNO(S) ADIMPLENTE - REABILITAÇÃO</a>
+						<a class="dropdown-item" href="relatorioPagamentoPago_Pilates.php" accesskey="" style="font-size: 10px;">RELATÓRIO DE ALUNO(S) ADIMPLENTE - PILATES</a>
+						<a class="dropdown-item" href="relatorioPagamentosPago_Quiropraxia.php" accesskey="" style="font-size: 10px;">RELATÓRIO DE ALUNO(S) ADIMPLENTE - QUIROPRAXIA</a>
+					<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="relatorioPagamentoNaoPago_Derm.php" accesskey="" style="font-size: 10px;">RELATÓRIO DE ALUNO(S) INADIMPLENTE - DERM</a>
+						<a class="dropdown-item" href="relatorioPagamentoNaoPago_Reabilitacao.php" accesskey="" style="font-size: 10px;">RELATÓRIO DE ALUNO(S) INADIMPLENTE - REABILITAÇÃO</a>
+						<a class="dropdown-item" href="relatorioPagamentoNaoPago_Pilates.php" accesskey="" style="font-size: 10px;">RELATÓRIO DE ALUNO(S) INADIMPLENTE - PILATES</a>
+						<a class="dropdown-item" href="relatorioPagamentosNaoPago_Quiropraxia.php" accesskey="" style="font-size: 10px;">RELATÓRIO DE ALUNO(S) INADIMPLENTE - QUIROPRAXIA</a>
+					<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="relatorioProfissionaisQtdCliente.php" accesskey="" style="font-size: 10px;">RELATÓRIO DE PROFISSIONAIS</a>
+					<div class="dropdown-divider"></div>
+						<a class="dropdown-item" href="relatorioDespesaReceita.php" accesskey="" style="font-size: 10px;">RELATÓRIO RECEITAS/DESPESAS</a>
 				</div>
 			</li>
 
 			<li class="nav-item dropdown" style="padding-left:20px;">
 				<a href="#" class="nav-link dropdown-toggle text-white" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-					<img src="img/config.png" alt="Configurações">
+					<img src="img/config.png" alt="Avatar">
 					<b class="caret"></b>
 				</a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="indexPlanos.php" accesskey="" style="font-size: 10px;">Planos</a>
+					<a class="dropdown-item" href="indexPlanos.php" accesskey="" style="font-size: 10px;">PLANOS</a>
+					<a class="dropdown-item" href="indexProfissional.php" accesskey="" style="font-size: 10px;">PROFISSIONAIS</a>
 				</div>
 			</li>
 			</ul>
@@ -146,9 +160,9 @@
 			<?php
 			$data = new DateTime();
 			$locale = "pt_BR";
-			$dateType = IntlDateFormatter::LONG;//type of date formatting
-			$timeType = IntlDateFormatter::NONE;//type of time formatting setting to none, will give you date itself
-			$formatter =new IntlDateFormatter($locale, $dateType, $timeType);
+			$dateType = IntlDateFormatter::LONG; //type of date formatting
+			$timeType = IntlDateFormatter::NONE; //type of time formatting setting to none, will give you date itself
+			$formatter = new IntlDateFormatter($locale, $dateType, $timeType);
 			$dateTime = new DateTime();
 			?>
 			<ul class="form-inline my-2 my-lg-0" style="width: 100%; justify-content: flex-end;">

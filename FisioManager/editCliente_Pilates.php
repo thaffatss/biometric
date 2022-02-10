@@ -26,7 +26,7 @@
 					$descricao = $_POST['descricao'];
 					$atestado = $_POST['atestado'];
 					$plano = $_POST['plano'];
-					var_dump($plano);
+					$professor = $_POST['professor'];
 				}			
 					
 					$dados = filter_input_array(INPUT_POST, FILTER_DEFAULT);
@@ -172,7 +172,8 @@
 															   opcao19			 = ?,
 															   opcao20			 = ?,
 															   opcao21			 = ?,
-															   Planos_idPlano    = ?
+															   Planos_idPlano    = ?,
+															   Professor_id      = ?
 														   WHERE idCliente_pilates = ?");
 
 						$updateCliente->bindValue(1, $dataMatricula);	
@@ -209,26 +210,16 @@
 						$updateCliente->bindValue(32, $dados['opcao19'], PDO::PARAM_INT);
 						$updateCliente->bindValue(33, $dados['opcao20'], PDO::PARAM_INT);
 						$updateCliente->bindValue(34, $dados['opcao21'], PDO::PARAM_INT);
-						$updateCliente->bindValue(35, $plano);	
-						$updateCliente->bindValue(36, $id);	
+						$updateCliente->bindValue(35, $plano);
+						$updateCliente->bindValue(36, $professor);	
+						$updateCliente->bindValue(37, $id);	
 						$updateCliente->execute();
-						// Se adicionar outro valor ao procedimento do paciente ele muda status de pago para devedor.
-						/*if(!empty($preco)) {
-
-							$updateStatusPgm = $pdo->prepare("UPDATE cliente SET status_pago = 0 WHERE idCliente = ?");
-							$updateStatusPgm->bindValue(1, $id);
-							$updateStatusPgm->execute();
-
-							header("Location: indexCliente.php");
-						} else {*/
-								if($updateCliente->rowCount() > 0) {
-									
-									header("Location: indexCliente_Pilates.php");
-
-								}else{
-									$erro_cliente = 1; 
-								}
-						//}
+						
+							if($updateCliente->rowCount() > 0) {
+								header("Location: indexCliente_Pilates.php");
+							}else{
+								$erro_cliente = 1; 
+							}
 					}							   
 				}		 
 		?>			
@@ -292,7 +283,7 @@
 											<input type="id" name="id" value="<?php echo $mostre->idCliente_pilates; ?>" hidden>
 																		  
 											<div class="form-row">
-												<div class="form-group col-md-6">
+												<div class="form-group col-md-3">
 													<label for= "nome">Matricula</label>
 													<input id="date1"
 														   type="date" 
@@ -302,7 +293,7 @@
 														   autocomplete="off"
 														   required>
 												</div>
-												<div class="form-group col-md-6">
+												<div class="form-group col-md-3">
 													<label for= "idade">Venvimento</label>
 													<input id="date2"
 														   type="date" 
@@ -312,9 +303,7 @@
 														   autocomplete="off"
 														   required>
 												</div>
-											</div>
-											<div class="form-row">
-												<div class="form-group col-md-6">
+												<div class="form-group col-md-3">
 													<label for= "nome">Nome</label>
 													<input id="nome"
 														   type="text" 
@@ -326,21 +315,7 @@
 														   maxlength="50"
 														   required>
 												</div>
-												<div class="form-group col-md-6">
-													<label for= "idade">Idade</label>
-													<input id="idade"
-														   type="text" 
-														   name="idade" 
-														   class="form-control" 
-														   value="<?php echo $mostre->idade; ?>"
-														   placeholder="Insira uma Idade" 
-														   autocomplete="off"
-														   maxlength="3">
-												</div>
-											</div>
-											<div class="form-row">
-												
-												<div class="form-group col-md-4">
+												<div class="form-group col-md-3">
 													<label for= "cpf">CPF</label>
 													<input id="cpf"
 														   type="text" 
@@ -351,8 +326,34 @@
 														   autocomplete="off"
 														   maxlength="14">
 												</div>
-												
-												<div class="form-group col-md-4">
+											</div>
+											<div class="form-row">
+												<div class="form-group col-md-3">
+													<label for= "sessoes">Sessões</label><br>
+													<input class="form-control"  value="<?php echo $mostre->sessoes; ?>" type="number" name="sessoes" id="num">
+												</div>
+												<div class="form-group col-md-3">
+													<label for= "profissao">Profissão</label>
+													<input  type="text"
+															name="profissao"
+															class="form-control"
+															value="<?php echo $mostre->profissao; ?>"
+															placeholder="Insira uma Profissão"
+															autocomplete="off"
+															maxlength="30">
+												</div>
+												<div class="form-group col-md-3">
+													<label for= "idade">Idade</label>
+													<input id="idade"
+														   type="text" 
+														   name="idade" 
+														   class="form-control" 
+														   value="<?php echo $mostre->idade; ?>"
+														   placeholder="Insira uma Idade" 
+														   autocomplete="off"
+														   maxlength="3">
+												</div>
+												<div class="form-group col-md-3">
 													<label for= "telefone">Telefone</label>
 													<input id="telefone" 
 														   type="text" 
@@ -363,46 +364,10 @@
 														   autocomplete="off"
 														   maxlength="16">
 												</div>
-
+											</div>
+											<div class="form-row">
+												
 												<div class="form-group col-md-4">
-													<label for= "pc_valor">Valor</label>
-													<input id="real2"
-													 	   type="text" 
-														   name="pc_valor" 
-														   class="form-control" 
-														   value="<?php echo $mostre->pc_valor; ?>"
-														   placeholder="Ex: 40,00" 
-														   autocomplete="off"
-														   maxlength="16">
-												</div>
-											</div>
-											<div class="form-row">
-
-												<div class="form-group col-md-12">
-													<label for= "profissao">Profissão</label>
-													<input  type="text"
-															name="profissao"
-															class="form-control"
-															value="<?php echo $mostre->profissao; ?>"
-															placeholder="Insira uma Profissão"
-															autocomplete="off"
-															maxlength="30">
-												</div>
-											</div>
-											<div class="form-row">
-												<div class="form-group col-md-12">
-													<label for= "endereco">Endereço</label>
-													<input  type="text" 
-															name="endereco"
-															class="form-control"
-															value="<?php echo $mostre->endereco; ?>"
-															placeholder="Av. Nome Endereço, Centro, nº XXX"
-															autocomplete="off"
-															maxlength="50">
-												</div>
-											</div>
-											<div class="form-row">
-												<div class="form-group col-md-6">
 													<label for= "procedimento">Procedimento</label>
 													<input  type="text" 
 															name="procedimento"
@@ -412,43 +377,80 @@
 															autocomplete="off"
 															maxlength="50">
 												</div>
-												<div class="form-group col-md-6">
+												<div class="form-group col-md-4">
 													<label for="plano">Planos*</label><br />
 													<select name="plano" class="form-control" required autocomplete="off" aria-placeholder="Aqui">
-															<?php
-															// Busca o plano cadastrado do cliente e o seleciona.
-															$buscarPlanoSelected = $pdo->prepare('SELECT pl.idPlano AS idPlano, pl.plano AS plano FROM planos pl WHERE idPlano = '.$_GET['p']);
-															$buscarPlanoSelected->execute();
-															$row = $buscarPlanoSelected->fetchAll(PDO::FETCH_OBJ);
 															
-															foreach ($row as $dados01) {
-															?>	
-																<option value="<?php echo $dados01->idPlano; ?>" <?=($dados01->$idPlano == $_GET['p'])?'selected="selected"':''?>><?= $dados01->plano ?></option>
-															
-															<?php
-															}
-															?>
-																
 															<?php 
 															// Busca todos os planos cadastrados.
 															$buscarPlano = $pdo->prepare('SELECT * FROM planos');
 															$buscarPlano->execute();
-															$row = $buscarPlano->fetchAll(PDO::FETCH_OBJ);
-															
-															foreach ($row as $dados02) {
+															$rowPlanos = $buscarPlano->fetchAll(PDO::FETCH_OBJ);
+
+															// Busca o cliente cadastrados.
+															$buscarClientePlano = $pdo->prepare("SELECT * FROM cliente_pilates WHERE idCliente_pilates ='".$_GET['id']."'");
+															$buscarClientePlano->execute();
+															$rowClientePilates = $buscarClientePlano->fetchAll(PDO::FETCH_OBJ);
+
+															foreach ($rowPlanos as $dados01) {
+																foreach ($rowClientePilates as $dados02) {
 															?>	
-																<option value="<?php echo $dados02->idPlano; ?>"><?= $dados02->plano ?></option>
+																<option value="<?= $dados01->idPlano ?>" <?=$dados01->idPlano == $dados02->Planos_idPlano ? 'selected' : ''?>><?= $dados01->plano ?></option>
 															
 															<?php
+															}
 															}
 															?>
 													</select>
 												</div>
+												<div class="form-group col-md-4">
+													<label for="professor">Profissionais</label><br />
+													<select name="professor" class="form-control" required autocomplete="off" aria-placeholder="Aqui">
+														<option value="">Selecione um Profissional</option>
+														<?php
+														
+														// Busca todos os professores no banco.
+														$buscarProf = $pdo->prepare('SELECT * FROM professor');
+														$buscarProf->execute();
+														$rowProf = $buscarProf->fetchAll(PDO::FETCH_OBJ);
+
+														// Busca o cliente cadastrados.
+														$buscarClientePlano = $pdo->prepare("SELECT * FROM cliente_pilates WHERE idCliente_pilates ='".$_GET['id']."'");
+														$buscarClientePlano->execute();
+														$rowClientePilates = $buscarClientePlano->fetchAll(PDO::FETCH_OBJ);
+
+														foreach ($rowProf as $mostre01) {
+															foreach ($rowClientePilates as $mostre02) {
+														?>
+															<option value="<?= $mostre01->id ?>" <?=$mostre01->id == $mostre02->Professor_id ? 'selected' : ''?>><?= $mostre01->nome ?></option>
+														<?php
+															}
+														}
+														?>
+													</select>
+												</div>
 											</div>
 											<div class="form-row">
-												<div class="form-group col-md-12">
-													<label for= "sessoes">Sessões</label><br>
-													<input class="form-control"  value="<?php echo $mostre->sessoes; ?>" type="number" name="sessoes" id="num">
+											<div class="form-group col-md-3">
+												<label for= "pc_valor">Valor Procedimento*</label>
+												<input id="real2"
+													type="text" 
+													name="pc_valor" 
+													class="form-control" 
+													value="<?php echo $mostre->pc_valor; ?>"
+													placeholder="Ex: 40,00" 
+													autocomplete="off"
+													maxlength="16">
+												</div>
+												<div class="form-group col-md-9">
+													<label for= "endereco">Endereço</label>
+													<input  type="text" 
+															name="endereco"
+															class="form-control"
+															value="<?php echo $mostre->endereco; ?>"
+															placeholder="Av. Nome Endereço, Centro, nº XXX"
+															autocomplete="off"
+															maxlength="50">
 												</div>
 											</div>
 											<div class="form-row">

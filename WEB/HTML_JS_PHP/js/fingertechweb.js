@@ -16,8 +16,8 @@ function Capture() {
 			
 			if (data != "" && data != null) {
 				
-				//var name = $("#inputName").val();
-				insertDB(data);
+				var name = $("#inputName").val();
+				insertDB(name, data);
 			}
 			else {
 				alert("Digital não pode ser capturada!");

@@ -12,8 +12,8 @@ if (isset($_SESSION['id_usuario'])) {
 
 	if (isset($_POST['cadCliente'])) {
 
-		$dataEntrada = $_POST['dataEntrada'];
-		$horaEntrada = $_POST['horaEntrada'];
+		$dataEntrada = date('Y-m-d', strtotime($_POST['dataEntrada']));
+		$horaEntrada = date('H:i:s', strtotime($_POST['horaEntrada']));
 		$nome = $_POST['nome'];
 		$cpf = $_POST['cpf'];
 		$saldo = $_POST['saldo'];
@@ -25,6 +25,7 @@ if (isset($_SESSION['id_usuario'])) {
 		$formPagamento = $_POST['forma_pagamento'];
 		$procedimento = $_POST['procedimento'];
 		$plano = $_POST['plano'];
+		$professor = $_POST['professor'];
 
 		if (
 			isset($nome) && !empty($nome) && isset($dataEntrada) &&
@@ -45,9 +46,10 @@ if (isset($_SESSION['id_usuario'])) {
 														 sessoes,
 														 Pagamento_idPagamento,
 														 procedimento,
-														 Planos_idPlano
+														 Planos_idPlano,
+														 Professor_id
 														 ) 
-									VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
+									VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			$insereCliente->bindValue(1, $dataEntrada);
 			$insereCliente->bindValue(2, $horaEntrada);
 			$insereCliente->bindValue(3, $nome);
@@ -61,6 +63,7 @@ if (isset($_SESSION['id_usuario'])) {
 			$insereCliente->bindValue(11, $formPagamento);
 			$insereCliente->bindValue(12, $procedimento);
 			$insereCliente->bindValue(13, $plano);
+			$insereCliente->bindValue(14, $professor);
 			$insereCliente->execute();
 
 
@@ -133,14 +136,31 @@ if (isset($_SESSION['id_usuario'])) {
 							</div>
 						</div>
 						<div class="form-row">
-							<div class="form-group col-md-6">
+							<div class="form-group col-md-4">
 								<label for="profissao">Profissão</label><br />
 								<input id="profissao" class="form-control" type="text" name="profissao" autocomplete="off" placeholder="Ex: Advogado">
 							</div>
 
-							<div class="form-group col-md-6">
+							<div class="form-group col-md-4">
 								<label for="saldo">Saldo</label>
 								<input id="real1" class="form-control" type="text" name="saldo" autocomplete="off" value="0" placeholder="EX: 40,00">
+							</div>
+
+							<div class="form-group col-md-4">
+								<label for="professor">Profissionais</label><br />
+								<select name="professor" class="form-control" required autocomplete="off" aria-placeholder="Aqui">
+									<option value="">Selecione um Profissional</option>
+									<?php
+									$buscarProf = $pdo->prepare('SELECT * FROM professor');
+									$buscarProf->execute();
+									$row = $buscarProf->fetchAll(PDO::FETCH_OBJ);
+									foreach ($row as $mostre) {
+									?>
+										<option value="<?php echo $mostre->id; ?>"><?php echo $mostre->nome; ?></option>
+									<?php
+									}
+									?>
+								</select>
 							</div>
 						</div>
 						<div class="form-row">

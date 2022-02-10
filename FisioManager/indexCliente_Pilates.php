@@ -15,7 +15,7 @@
 			<div class="modal-dialog">
 			<div class="modal-content">
 			<div class="modal-header bg-primary text-white">
-				<h5 class="modal-title" id="staticBackdropLabel">PRONTUÁRIO DO PACIENTE</h5>
+				<h5 class="modal-title" id="staticBackdropLabel">PRONTUÁRIO DO ALUNO</h5>
 			</div>
 			<div class="modal-body" style="overflow: auto; width: 100%; height: 400px;">
 				<span id="visul_paciente"></span>
@@ -32,7 +32,7 @@
 			<div class="modal-dialog">
 			<div class="modal-content">
 			<div class="modal-header bg-primary text-white">
-				<h5 class="modal-title" id="staticBackdropLabel">ATESTADO DO PACIENTE</h5>
+				<h5 class="modal-title" id="staticBackdropLabel">ATESTADO DO ALUNO</h5>
 			</div>
 			<div class="modal-body" style="overflow: auto; width: 100%; height: 400px;">
 				<span id="atestado"></span>
@@ -50,9 +50,9 @@
             <br>
 			<div class="card">
 				<div class="card-body">
-				<h5 class="card-title">Pacientes Pilates
+				<h5 class="card-title">Alunos Pilates
 					<a href="indexCliente_Pilates_Disabled.php">
-						<i class="bi bi-person-x-fill" title="Pacientes Desabilitados" style=" color: #C92332; font-size: 2rem; margin-right:5px; float: right; padding-bottom: 10px;"></i>
+						<i class="bi bi-person-x-fill" title="Alunos Desabilitados" style=" color: #C92332; font-size: 2rem; margin-right:5px; float: right; padding-bottom: 10px;"></i>
 					</a>
 				</h5>
 				
@@ -69,7 +69,7 @@
 											<center><font size=2></font>
 										</th>										
 										<th width="12%">
-											<center><font size=2>CLIENTE</font>
+											<center><font size=2>NOME</font>
 										</th>
 										<th class="th-cpf" width="8%">
 											<center><font size=2>CPF</font>
@@ -92,7 +92,7 @@
 										<th width="2%">
 											<center><font size=2>VALOR</font>
 										</th>																			
-										<th width="8%">
+										<th width="10%">
 											<center><font size=2>SESSÕES</font>
 										</th>
                                         <th width="2%">
@@ -128,7 +128,7 @@
 											?>
 											
 											<tr>
-												<td style="font-size: 16px; text-align: center;" title="Desabilitar Paciente">
+												<td style="font-size: 16px; text-align: center;" title="Desabilitar Aluno">
 													<a href="disabledClientePilates.php?id=<?php echo $value['codigo']; ?>&bloquear=<?= 0 ?>" data-confirm-disabled-paciente > <i class="bi-x-circle-fill" style="color: red;"></i> </a>
 												</td>
 
@@ -191,39 +191,33 @@
 												<?php
 													if($value['sts'] == 0 ) {
 												?>
-													<td style="font-size: 15px; text-align: center;"><a data-confirm-open title ='Desbloquear Mensalidade - Data Bloqueio: <?= date('d/m/Y', strtotime($value['bloqueio'])) ?>' href="sinalizarStatusOpenPilates.php?id=<?= $value['codigo']; ?>&date=<?= $_SESSION['dt_locked']; ?>"><i style="color:red;" class="bi bi-lock-fill"></i></a></td>
+													<td style="font-size: 15px; text-align: center;"><a data-confirm-open title ='Desbloquear Mensalidade - Data Bloqueio: <?php echo $result = ($value['bloqueio'] != "" && $value['bloqueio'] != NULL) ? date('d/m/Y', strtotime($value['bloqueio'])) : ''; ?>' href="sinalizarStatusOpenPilates.php?id=<?=$value['codigo']?>&date=<?= date('Y/m/d') ?>"><i style="color:red;" class="bi bi-lock-fill"></i></a></td>
 												<?php
 													} else {
 												?>
-													<td style="font-size: 15px; text-align: center;"><a title ='Bloquear Mensalidade - Data Desbloqueio: <?= date('d/m/Y', strtotime($value['liberacao'])) ?>' data-confirm-block href="sinalizarStatusClosedPilates.php?id=<?= $value['codigo']; ?>&date=<?= $_SESSION['dt_locked']; ?>"><i style="color:green;" class="bi bi-unlock-fill"></i></a></td>
+													<td style="font-size: 15px; text-align: center;"><a title ='Bloquear Mensalidade - Data Desbloqueio: <?php echo $result = ($value['liberacao'] != "" && $value['liberacao'] != NULL) ? date('d/m/Y', strtotime($value['liberacao'])) : ''; ?>' data-confirm-block href="sinalizarStatusClosedPilates.php?id=<?=$value['codigo']?>&date=<?= date('Y/m/d') ?>"><i style="color:green;" class="bi bi-unlock-fill"></i></a></td>
 												<?php
 													}
 												?>
 
-												
-
                                                 <td style="font-size: 16px; text-align: center; width:60px;">
-                                                    <a title ='Editar Paciente' href='editCliente_Pilates.php?id=<?php echo $value['codigo']; ?>&p=<?php echo $value['Planos_idPlano']; ?>' data-confirm-edit='Tem certeza de que deseja editar esse item selecionado?' style="margin-left: 5px;">
+                                                    <a title ='Editar Aluno' href='editCliente_Pilates.php?id=<?= $value['codigo'] ?>' data-confirm-edit='Tem certeza de que deseja editar esse item selecionado?' style="margin-left: 5px;">
 														<i class="bi bi-pencil" style="color: #007FB9;"></i>
 													</a>
-                                                    <a title ='Deletar Paciente' href='deleteCliente_Pilates.php?id=<?php echo $value['codigo']; ?>' data-confirm-del='Tem certeza de que deseja excluir o item selecionado?' style="margin-left: 5px;">
+                                                    <a title ='Deletar Aluno' href='deleteCliente_Pilates.php?id=<?= $value['codigo'] ?>' data-confirm-del='Tem certeza de que deseja excluir o item selecionado?' style="margin-left: 5px;">
 														<i class="bi bi-trash" style="color: #DD2828;"></i>
 													</a>
-													<a title="Visualizar Prontuário do Paciente" class="view_data" id="<?php echo $value['codigo']; ?>" style="margin-left: 5px;">
+													<a title="Visualizar Prontuário do Aluno" class="view_data" id="<?= $value['codigo'] ?>" style="margin-left: 5px;">
 														<i class="bi bi-eye"></i>
 													</a>
-													<a title="Gerar Atestado para Paciente" class="view_data_2" id="<?php echo $value['codigo']; ?>" style="margin-left: 5px;">
+													<a title="Gerar Atestado para Aluno" class="view_data_2" id="<?= $value['codigo'] ?>" style="margin-left: 5px;">
 														<i class="bi bi-journal-text"></i>
 													</a>
                                                 </td>
-												
 											</tr>
-											
 										<?php
-										
 										}
 									}
-
 									?>
 								</tbody>
 							</table>
@@ -286,6 +280,37 @@
 		</script>
 		<script type="text/javascript">
     		document.getElementById("search").focus();
+		</script>
+
+		<script>
+		function Bloquear(id) {
+
+		// Passa via ajax biometria pra ser inserida no banco de dados.
+		$.ajax({
+			url: 'sinalizarStatusOpenPilates.php',
+			type: 'POST',
+			data:{
+				date: data, 
+				id:id
+			}
+		});
+
+		$("#modal-mensagem").modal();
+		document.getElementById("modal-content").innerHTML = '<i style="color:#07f9a2; font-size: 120px; justify-content: center; display: flex; margin:auto; align-items: center;" class="bi bi-check-circle"></i><br><h4 style="color:#07f9a2; justify-content: center; display: flex; margin:auto; align-items: center;">Digital cadastrada com sucesso!</h4>';
+		let showTime = setTimeout(function() {
+			jQuery("#modal-mensagem").modal("hide");
+			location.reload();
+		}, 1500);
+
+	} else {
+		$("#modal-mensagem").modal();
+		document.getElementById("modal-content").innerHTML = '<i style="color:#c42311; font-size: 120px; justify-content: center; display: flex; margin:auto; align-items: center;" class="bi bi-check-circle"></i><br><h4 style="color:#c42311; justify-content: center; display: flex; margin:auto; align-items: center;">Digital não pode ser cadastrada!</h4>';
+		let showTime = setTimeout(function() {
+			jQuery("#modal-mensagem").modal("hide");
+			location.reload();
+		}, 1500);
+
+	}
 		</script>
 	</body>
 </html>

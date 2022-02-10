@@ -27,6 +27,7 @@
 					$descricao = $_POST['descricao'];
 					$atestado = $_POST['atestado'];
 					$plano = $_POST['plano'];
+					$professor = $_POST['professor'];
 				}			
 					
 					
@@ -174,7 +175,8 @@
 															   opcao19			 = ?,
 															   opcao20			 = ?,
 															   opcao21			 = ?,
-															   Planos_idPlano    = ?
+															   Planos_idPlano    = ?,
+															   Professor_id      = ?
 														   WHERE idCliente_reabilitacao = ?");
 
 						$updateCliente->bindValue(1, $nome);	
@@ -212,26 +214,18 @@
 						$updateCliente->bindValue(33, $dados['opcao19'], PDO::PARAM_INT);
 						$updateCliente->bindValue(34, $dados['opcao20'], PDO::PARAM_INT);
 						$updateCliente->bindValue(35, $dados['opcao21'], PDO::PARAM_INT);
-						$updateCliente->bindValue(36, $plano);	
-						$updateCliente->bindValue(37, $id);	
+						$updateCliente->bindValue(36, $plano);
+						$updateCliente->bindValue(37, $professor);		
+						$updateCliente->bindValue(38, $id);	
 						$updateCliente->execute();
-						// Se adicionar outro valor ao procedimento do paciente ele muda status de pago para devedor.
-						/*if(!empty($preco)) {
-
-							$updateStatusPgm = $pdo->prepare("UPDATE cliente SET status_pago = 0 WHERE idCliente = ?");
-							$updateStatusPgm->bindValue(1, $id);
-							$updateStatusPgm->execute();
-
-							header("Location: indexCliente.php");
-						} else {*/
-								if($updateCliente->rowCount() > 0) {
+						
+							if($updateCliente->rowCount() > 0) {
 									
-									header("Location: indexCliente_Reabilitacao.php");
+								header("Location: indexCliente_Reabilitacao.php");
 
-								}else{
-									$erro_cliente = 1; 
-								}
-						//}
+							}else{
+								$erro_cliente = 1; 
+							}
 					}							   
 				}		 
 		?>			
@@ -297,7 +291,7 @@
 																		  
 					
 											<div class="form-row">
-												<div class="form-group col-md-6">
+												<div class="form-group col-md-3">
 													<label for= "nome">Nome</label>
 													<input id="nome"
 														   type="text" 
@@ -309,7 +303,7 @@
 														   maxlength="50"
 														   required>
 												</div>
-												<div class="form-group col-md-6">
+												<div class="form-group col-md-3">
 													<label for= "idade">Idade</label>
 													<input id="idade"
 														   type="text" 
@@ -320,32 +314,6 @@
 														   autocomplete="off"
 														   maxlength="3">
 												</div>
-											</div>
-											<div class="form-row">
-												<div class="form-group col-md-3">
-													<label for= "peso">Peso</label>
-													<input id="peso"
-														   type="text" 
-														   name="peso" 
-														   class="form-control" 
-														   value="<?php echo $mostre->peso; ?>"
-														   placeholder="XX KG" 
-														   autocomplete="off"
-														   maxlength="4">
-												</div>
-												
-												<div class="form-group col-md-3">
-													<label for= "altura">Altura</label>
-													<input id="altura"
-														   type="text" 
-														   name="altura" 
-														   class="form-control" 
-														   value="<?php echo $mostre->altura; ?>"
-														   placeholder="X.XX" 
-														   autocomplete="off"
-														   maxlength="4">
-												</div>
-												
 												<div class="form-group col-md-3">
 													<label for= "cpf">CPF</label>
 													<input id="cpf"
@@ -357,21 +325,41 @@
 														   autocomplete="off"
 														   maxlength="14">
 												</div>
-												
 												<div class="form-group col-md-3">
-													<label for= "telefone">Telefone</label>
-													<input id="telefone" 
-														   type="text" 
-														   name="telefone" 
-														   class="form-control" 
-														   value="<?php echo $mostre->telefone; ?>"
-														   placeholder="(XX) X XXXX-XXXX" 
-														   autocomplete="off"
-														   maxlength="16">
+													<label for= "profissao">Profissão</label>
+													<input  type="text"
+															name="profissao"
+															class="form-control"
+															value="<?php echo $mostre->profissao; ?>"
+															placeholder="Insira uma Profissão"
+															autocomplete="off"
+															maxlength="30">
 												</div>
 											</div>
 											<div class="form-row">
-												<div class="form-group col-md-3">
+												<div class="form-group col-md-2">
+													<label for= "peso">Peso</label>
+													<input id="peso"
+														   type="text" 
+														   name="peso" 
+														   class="form-control" 
+														   value="<?php echo $mostre->peso; ?>"
+														   placeholder="XX KG" 
+														   autocomplete="off"
+														   maxlength="4">
+												</div>
+												<div class="form-group col-md-2">
+													<label for= "altura">Altura</label>
+													<input id="altura"
+														   type="text" 
+														   name="altura" 
+														   class="form-control" 
+														   value="<?php echo $mostre->altura; ?>"
+														   placeholder="X.XX" 
+														   autocomplete="off"
+														   maxlength="4">
+												</div>
+												<div class="form-group col-md-2">
 													<label for= "saldo">Saldo</label>
 													<input id="real1"
 													 	   type="text" 
@@ -393,31 +381,20 @@
 														   autocomplete="off"
 														   maxlength="16">
 												</div>
-												<div class="form-group col-md-6">
-													<label for= "profissao">Profissão</label>
-													<input  type="text"
-															name="profissao"
-															class="form-control"
-															value="<?php echo $mostre->profissao; ?>"
-															placeholder="Insira uma Profissão"
-															autocomplete="off"
-															maxlength="30">
+												<div class="form-group col-md-3">
+													<label for= "telefone">Telefone</label>
+													<input id="telefone" 
+														   type="text" 
+														   name="telefone" 
+														   class="form-control" 
+														   value="<?php echo $mostre->telefone; ?>"
+														   placeholder="(XX) X XXXX-XXXX" 
+														   autocomplete="off"
+														   maxlength="16">
 												</div>
 											</div>
 											<div class="form-row">
-												<div class="form-group col-md-12">
-													<label for= "endereco">Endereço</label>
-													<input  type="text" 
-															name="endereco"
-															class="form-control"
-															value="<?php echo $mostre->endereco; ?>"
-															placeholder="Av. Nome Endereço, Centro, nº XXX"
-															autocomplete="off"
-															maxlength="50">
-												</div>
-											</div>
-											<div class="form-row">
-												<div class="form-group col-md-6">
+												<div class="form-group col-md-4">
 													<label for= "procedimento">Procedimento</label>
 													<input  type="text" 
 															name="procedimento"
@@ -427,43 +404,73 @@
 															autocomplete="off"
 															maxlength="50">
 												</div>
-												<div class="form-group col-md-6">
+												<div class="form-group col-md-4">
 													<label for="plano">Planos*</label><br />
 													<select name="plano" class="form-control" required autocomplete="off" aria-placeholder="Aqui">
-															<?php
-															// Busca o plano cadastrado do cliente e o seleciona.
-															$buscarPlanoSelected = $pdo->prepare('SELECT pl.idPlano AS idPlano, pl.plano AS plano FROM planos pl WHERE idPlano = '.$_GET['p']);
-															$buscarPlanoSelected->execute();
-															$row = $buscarPlanoSelected->fetchAll(PDO::FETCH_OBJ);
 															
-															foreach ($row as $dados01) {
-															?>	
-																<option value="<?php echo $dados01->idPlano; ?>" <?=($dados01->$idPlano == $_GET['p'])?'selected="selected"':''?>><?= $dados01->plano ?></option>
-															
-															<?php
-															}
-															?>
-																
 															<?php 
 															// Busca todos os planos cadastrados.
 															$buscarPlano = $pdo->prepare('SELECT * FROM planos');
 															$buscarPlano->execute();
-															$row = $buscarPlano->fetchAll(PDO::FETCH_OBJ);
-															
-															foreach ($row as $dados02) {
+															$rowPlanos = $buscarPlano->fetchAll(PDO::FETCH_OBJ);
+
+															// Busca o cliente cadastrados.
+															$buscarClientePlano = $pdo->prepare("SELECT * FROM cliente_reabilitacao WHERE idCliente_reabilitacao ='".$_GET['id']."'");
+															$buscarClientePlano->execute();
+															$rowClientePilates = $buscarClientePlano->fetchAll(PDO::FETCH_OBJ);
+
+															foreach ($rowPlanos as $dados01) {
+																foreach ($rowClientePilates as $dados02) {
 															?>	
-																<option value="<?php echo $dados02->idPlano; ?>"><?= $dados02->plano ?></option>
+																<option value="<?= $dados01->idPlano ?>" <?=$dados01->idPlano == $dados02->Planos_idPlano ? 'selected' : ''?>><?= $dados01->plano ?></option>
 															
 															<?php
+															}
 															}
 															?>
 													</select>
 												</div>
+												<div class="form-group col-md-4">
+													<label for="professor">Profissionais</label><br />
+													<select name="professor" class="form-control" required autocomplete="off" aria-placeholder="Aqui">
+														<option value="">Selecione um Profissional</option>
+														<?php
+														
+														// Busca todos os professores no banco.
+														$buscarProf = $pdo->prepare('SELECT * FROM professor');
+														$buscarProf->execute();
+														$rowProf = $buscarProf->fetchAll(PDO::FETCH_OBJ);
+
+														// Busca o cliente cadastrados.
+														$buscarClientePlano = $pdo->prepare("SELECT * FROM cliente_reabilitacao WHERE idCliente_reabilitacao ='".$_GET['id']."'");
+														$buscarClientePlano->execute();
+														$rowClientePilates = $buscarClientePlano->fetchAll(PDO::FETCH_OBJ);
+
+														foreach ($rowProf as $mostre01) {
+															foreach ($rowClientePilates as $mostre02) {
+														?>
+															<option value="<?= $mostre01->id ?>" <?=$mostre01->id == $mostre02->Professor_id ? 'selected' : ''?>><?= $mostre01->nome ?></option>
+														<?php
+															}
+														}
+														?>
+													</select>
+												</div>
 											</div>
 											<div class="form-row">
-												<div class="form-group col-md-12">
+												<div class="form-group col-md-3">
 													<label for= "sessoes">Sessões</label><br>
 													<input class="form-control"  value="<?php echo $mostre->sessoes; ?>"type="number" name="sessoes" id="num">
+												</div>
+												<div class="form-group col-md-9">
+													<label for= "endereco">Endereço</label>
+													<input  type="text" 
+															name="endereco"
+															class="form-control"
+															value="<?php echo $mostre->endereco; ?>"
+															placeholder="Av. Nome Endereço, Centro, nº XXX"
+															autocomplete="off"
+															maxlength="50">
 												</div>
 											</div>
 											<div class="form-row">

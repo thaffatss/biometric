@@ -19,7 +19,7 @@
 	<div class="row" style="justify-content: center; padding-bottom: 3rem;">
 		<div class="input-group mb-3">
   			<input type="number" class="form-control" placeholder="Didite a quantidade de dias para vencer" name="dias" aria-label="Recipient's username" aria-describedby="button-addon2">
-  				<button class="btn btn-outline-secondary" type="submit" id="button-addon2">Buscar</button>
+  			<button class="btn btn-outline-secondary" type="submit" id="button-addon2">Buscar</button>
 			</div>
     </div>
 </form>

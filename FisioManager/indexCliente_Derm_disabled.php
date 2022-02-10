@@ -15,7 +15,7 @@
 			<div class="modal-dialog">
 			<div class="modal-content">
 			<div class="modal-header bg-primary text-white">
-				<h5 class="modal-title" id="staticBackdropLabel">INFORMAÇÕES DO PACIENTE</h5>
+				<h5 class="modal-title" id="staticBackdropLabel">INFORMAÇÕES DO ALUNO</h5>
 			</div>
 			<div class="modal-body" style="overflow: auto; width: 100%; height: 400px;">
 				<span id="visul_paciente"></span>
@@ -32,7 +32,7 @@
 			<div class="modal-dialog">
 			<div class="modal-content">
 			<div class="modal-header bg-primary text-white">
-				<h5 class="modal-title" id="staticBackdropLabel">ATESTADO DO PACIENTE</h5>
+				<h5 class="modal-title" id="staticBackdropLabel">ATESTADO DO ALUNO</h5>
 			</div>
 			<div class="modal-body" style="overflow: auto; width: 100%;">
 				<span id="atestado"></span>
@@ -50,9 +50,9 @@
             <br>
 			<div class="card">
 				<div class="card-body">
-				<h5 class="card-title">Pacientes DERM - Desabilitado(s)
+				<h5 class="card-title">Alunos DERM - Desabilitado(s)
 					<a href="indexCliente_Derm.php">
-						<i class="bi bi-person-x-fill" title="Pacientes Habilitados" style=" color: green; font-size: 2rem; margin-right:5px; float: right; padding-bottom: 10px;"></i>
+						<i class="bi bi-person-x-fill" title="Alunos Habilitados" style=" color: green; font-size: 2rem; margin-right:5px; float: right; padding-bottom: 10px;"></i>
 					</a>
 				</h5>
 				<!-- Advanced Tables -->
@@ -68,7 +68,7 @@
 											<center><font size=2></font>
 										</th>										
 										<th width="25%">
-											<center><font size=2>CLIENTE</font>
+											<center><font size=2>NOME</font>
 										</th>
 										<th width="8%">
 											<center><font size=2>CPF</font>
@@ -113,7 +113,7 @@
 										foreach ($row as $key => $value) { ?>
 
 											<tr style="background-color: #FF00004B;">
-												<td style="font-size: 16px; text-align: center;" title="Habilitar Paciente">
+												<td style="font-size: 16px; text-align: center;" title="Habilitar Aluno">
 													<a href="enabledClienteDerm.php?id=<?php echo $value['codigo']; ?>&desbloquear=<?= 1 ?>" data-confirm-enabled-paciente ><i class="bi-x-circle-fill" style="color: green;"></i> </a>
 												</td>
 
@@ -157,16 +157,16 @@
 												</td>
 
                                                 <td style="font-size: 16px; text-align: center; width:60px;">
-                                                    <a title ='Editar Paciênte' href='editCliente_Derm.php?id=<?php echo $value['codigo']; ?>&p=<?php echo $value['Planos_idPlano']; ?>' data-confirm-edit='Tem certeza de que deseja editar esse item selecionado?' style="margin-left: 5px;">
+                                                    <a title ='Editar Aluno' href='editCliente_Derm.php?id=<?php echo $value['codigo']; ?>&p=<?php echo $value['Planos_idPlano']; ?>' data-confirm-edit='Tem certeza de que deseja editar esse item selecionado?' style="margin-left: 5px;">
 														<i class="bi bi-pencil" style="color: #007FB9;"></i>
 													</a>
-                                                    <a title ='Deletar Paciênte' href='deleteCliente_Derm.php?id=<?php echo $value['codigo']; ?>' data-confirm-del='Tem certeza de que deseja excluir o item selecionado?' style="margin-left: 5px;">
+                                                    <a title ='Deletar Aluno' href='deleteCliente_Derm.php?id=<?php echo $value['codigo']; ?>' data-confirm-del='Tem certeza de que deseja excluir o item selecionado?' style="margin-left: 5px;">
 														<i class="bi bi-trash" style="color: #DD2828;"></i>
 													</a>
-													<a title="Visualizar Informações do Paciente" class="view_data" id="<?php echo $value['codigo']; ?>" style="margin-left: 5px;">
+													<a title="Visualizar Informações do Aluno" class="view_data" id="<?php echo $value['codigo']; ?>" style="margin-left: 5px;">
 														<i class="bi bi-eye"></i>
 													</a>
-													<a title="Gerar Atestado para Paciente" class="view_data_2" id="<?php echo $value['codigo']; ?>" style="margin-left: 5px;">
+													<a title="Gerar Atestado para Aluno" class="view_data_2" id="<?php echo $value['codigo']; ?>" style="margin-left: 5px;">
 														<i class="bi bi-journal-text"></i>
 													</a>
                                                 </td>

@@ -65,11 +65,11 @@
 												<td style="font-size: 12px; text-align: center;"><?=$value['plano'];?></td>
 
 												<td style="font-size: 16px; text-align: center; width:60px;">
-                                                    <a title ='Editar Despesa' href='editPlano.php?id=<?php echo $value['idPlano']; ?>' data-confirm-edit-despesa='Tem certeza de que deseja editar esse item selecionado?' style="margin-left: 5px;">
-														<i class="bi bi-pencil"></i>
+                                                    <a title ='Editar Plano' href='editPlano.php?id=<?php echo $value['idPlano']; ?>' data-confirm-edit-despesa='Tem certeza de que deseja editar esse item selecionado?' style="margin-left: 5px;">
+														<i class="bi bi-pencil" style="color: #007FB9;"></i>
 													</a>
-                                                    <a title ='Deletar Despesa' href='deletePlano.php?id=<?php echo $value['idPlano']; ?>' data-confirm-del-despesa='Tem certeza de que deseja excluir o item selecionado?' style="margin-left: 5px;">
-														<i class="bi bi-trash"></i>
+                                                    <a title ='Deletar Plano' href='deletePlano.php?id=<?php echo $value['idPlano']; ?>' data-confirm-del-despesa='Tem certeza de que deseja excluir o item selecionado?' style="margin-left: 5px;">
+														<i class="bi bi-trash" style="color: #DD2828;"></i>
 													</a>
                                                 </td>
 												

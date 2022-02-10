@@ -3,10 +3,6 @@ ini_set('display_errors', 'Off');
 error_reporting(E_ALL | E_STRICT);
 
 require_once "menu.php";
-require_once("Controller.php");
-
-$obj = new Controller();
-$table = $obj->selectDB();
 
 // Valida se usuário tá logado caso contrario, manda pro login.
 if (!isset($_SESSION['id_usuario'])) {
@@ -29,6 +25,7 @@ if (isset($_SESSION['id_usuario'])) {
 		$formPagamento = $_POST['forma_pagamento'];
 		$procedimento = $_POST['procedimento'];
 		$plano = $_POST['plano'];
+		$professor = $_POST['professor'];
 
 		if (
 			isset($nome) && !empty($nome) && isset($dataMatricula) &&
@@ -50,9 +47,10 @@ if (isset($_SESSION['id_usuario'])) {
 														 sessoes,
 														 Pagamento_idPagamento,
 														 procedimento,
-														 Planos_idPlano
+														 Planos_idPlano,
+														 Professor_id
 														 ) 
-									VALUES(?,?,?,?,?,?,?,?,?,?,?,?)");
+									VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)");
 			$insereClientePilates->bindValue(1, $dataMatricula);
 			$insereClientePilates->bindValue(2, $dataVencimento);
 			$insereClientePilates->bindValue(3, $nome);
@@ -65,6 +63,7 @@ if (isset($_SESSION['id_usuario'])) {
 			$insereClientePilates->bindValue(10, $formPagamento);
 			$insereClientePilates->bindValue(11, $procedimento);
 			$insereClientePilates->bindValue(12, $plano);
+			$insereClientePilates->bindValue(13, $professor);
 			$insereClientePilates->execute();
 
 
@@ -115,24 +114,14 @@ if (isset($_SESSION['id_usuario'])) {
 							<input id="endereco" class="form-control" type="text" name="endereco" autocomplete="off" placeholder="Ex: Av. Nome Endereço, Centro, nº XXX">
 						</div>
 						<div class="form-group col-md-6">
-							<label for="endereco">Biometria</label><br />
-							<div class="col-6">
-								<input type="text" class="form-control" id="inputName" placeholder="Digite seu nome...">
-							</div>
-								
-							<div class="col-1">
-								<button class="btn btn-primary" id="btn-capture">Cadastrar</button>
-							</div>
+							<label for="profissao">Profissão</label><br />
+							<input id="profissao" class="form-control" type="text" name="profissao" autocomplete="off" placeholder="Ex: Advogado">
 						</div>
 					</div>
 					<div class="form-row">
 						<div class="form-group col-md-4">
 							<label for="procedimento">Procedimento</label><br />
 							<input id="procedimento" class="form-control" type="text" name="procedimento" autocomplete="off" placeholder="Descreva os procedimentos">
-						</div>
-						<div class="form-group col-md-4">
-							<label for="profissao">Profissão</label><br />
-							<input id="profissao" class="form-control" type="text" name="profissao" autocomplete="off" placeholder="Ex: Advogado">
 						</div>
 						<div class="form-group col-md-4">
 						<label for="plano">Plano*</label><br />
@@ -145,6 +134,23 @@ if (isset($_SESSION['id_usuario'])) {
 								foreach ($row as $mostre) {
 								?>
 									<option value="<?php echo $mostre->idPlano; ?>"><?php echo $mostre->plano; ?></option>
+								<?php
+								}
+								?>
+							</select>
+						</div>
+
+						<div class="form-group col-md-4">
+							<label for="professor">Profissionais</label><br />
+							<select name="professor" class="form-control" required autocomplete="off" aria-placeholder="Aqui">
+								<option value="">Selecione um Profissional</option>
+								<?php
+								$buscarProf = $pdo->prepare('SELECT * FROM professor');
+								$buscarProf->execute();
+								$row = $buscarProf->fetchAll(PDO::FETCH_OBJ);
+								foreach ($row as $mostre) {
+								?>
+									<option value="<?php echo $mostre->id; ?>"><?php echo $mostre->nome; ?></option>
 								<?php
 								}
 								?>
@@ -183,7 +189,7 @@ if (isset($_SESSION['id_usuario'])) {
 						
 					</div>
 						<a href="indexFluxo_Pilates.php" type="button" class="btn btn-info" style="width: 9%; margin-right: 10px; height: 8%;">Voltar</a>
-						<button style="width: 11%;" type="submit" id="btn-capture" name="cadCliente" class="btn btn-success">
+						<button style="width: 11%;" type="submit" name="cadCliente" class="btn btn-success">
 							Cadastrar
 						</button>
 				</form>
